@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 
+import net.osmand.plus.headupdisplay.HeadUpDisplaySettingsBottomSheet;
 import net.osmand.plus.settings.backend.ApplicationMode;
 import net.osmand.plus.ContextMenuAdapter;
 import net.osmand.plus.ContextMenuItem;
@@ -396,6 +397,29 @@ public class MapWidgetRegistry {
 				}).setLayout(R.layout.list_item_text_button).createItem());
 		addControlId(map, cm, R.string.map_widget_transparent, settings.TRANSPARENT_MAP_THEME);
 		addControlId(map, cm, R.string.show_lanes, settings.SHOW_LANES);
+		//HUD
+		cm.addItem(new ContextMenuItem.ItemBuilder().setTitleId(R.string.head_up_display_title, map)
+				.setIcon(R.drawable.ic_action_head_up_display)
+				.setDescription(String.format("Scale: %s%%", settings.HEAD_UP_DISPLAY_SCALE.get()))
+				.setSelected(settings.HEAD_UP_DISPLAY.get())
+				.setListener(new ContextMenuAdapter.ItemClickListener() {
+					@Override
+					public boolean onContextMenuClick(ArrayAdapter<ContextMenuItem> adapter, int itemId, int position, boolean isChecked, int[] viewCoordinates) {
+						if(isChecked) {
+							settings.HEAD_UP_DISPLAY.set(true);
+							app.logEvent("drawer_hud_ratio_open");
+							HeadUpDisplaySettingsBottomSheet.showInstance(map);
+						}
+						else
+						{
+							settings.HEAD_UP_DISPLAY.set(false);
+						}
+						//AnnouncementTimeBottomSheet.showInstance(mapActivity.getSupportFragmentManager(), preference.getKey(), this, getSelectedAppMode(), false);
+						return true;
+					}
+				})
+				.setLayout(R.layout.list_item_icon_and_switch).createItem());
+
 	}
 
 	public void updateMapMarkersMode(MapActivity mapActivity) {

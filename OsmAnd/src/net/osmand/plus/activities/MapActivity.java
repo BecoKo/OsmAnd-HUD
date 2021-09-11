@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Rect;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -279,8 +280,8 @@ public class MapActivity extends OsmandActionBarActivity implements DownloadEven
 
 		super.onCreate(savedInstanceState);
 
-		// Full screen is not used here
-		// getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		// Full screen is used by HUD
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //HUD
 		setContentView(R.layout.main);
 
 		if (Build.VERSION.SDK_INT >= 21) {
@@ -295,7 +296,8 @@ public class MapActivity extends OsmandActionBarActivity implements DownloadEven
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		int w = dm.widthPixels;
 		int h = dm.heightPixels - statusBarHeight;
-
+		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		setHUD();
 		mapView = new OsmandMapTileView(this, w, h);
 		if (app.getAppInitializer().checkAppVersionChanged() && WhatsNewDialogFragment.SHOW) {
 			SecondSplashScreenFragment.SHOW = false;
@@ -372,7 +374,6 @@ public class MapActivity extends OsmandActionBarActivity implements DownloadEven
 		mapView.refreshMap(true);
 
 		mapActions.updateDrawerMenu();
-		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
 		IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
 		screenOffReceiver = new ScreenOffReceiver();
@@ -1423,6 +1424,7 @@ public class MapActivity extends OsmandActionBarActivity implements DownloadEven
 	}
 
 	public void updateApplicationModeSettings() {
+		setHUD();
 		changeKeyguardFlags();
 		updateMapSettings();
 		app.getPoiFilters().loadSelectedPoiFilters();
@@ -1491,7 +1493,6 @@ public class MapActivity extends OsmandActionBarActivity implements DownloadEven
 				} else {
 					mapView.resetDefaultColor();
 				}
-
 				return null;
 			}
 
@@ -1684,6 +1685,32 @@ public class MapActivity extends OsmandActionBarActivity implements DownloadEven
 		}
 	}
 
+	public synchronized void setHUD() {
+		if (drawerLayout != null) {
+			boolean enabled = settings.HEAD_UP_DISPLAY.get();
+			//int statusBarHeight = AndroidUtils.getStatusBarHeight(this);
+			DisplayMetrics dm = new DisplayMetrics();
+			getWindowManager().getDefaultDisplay().getMetrics(dm);
+			int windowHeight = dm.heightPixels;// - statusBarHeight;
+
+			float scale = enabled ? 0.01f * app.getSettings().HEAD_UP_DISPLAY_SCALE.get() :  1f;
+			int newHeight = (int)(windowHeight / scale);
+			//int topMargin = (int)((newHeight - windowHeight * scale + statusBarHeight) *0.5f);
+			int topMargin = (int)((newHeight - windowHeight * scale) *0.5f);
+			ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams)drawerLayout.getLayoutParams();
+			params.height = newHeight;
+			params.setMargins(0, topMargin, 0, 0);
+			drawerLayout.setLayoutParams(params);
+			drawerLayout.setPivotY(windowHeight * 0.5f);
+			if(enabled) {
+				drawerLayout.setScaleY(-scale);
+			}
+			else
+			{
+				drawerLayout.setScaleY(scale);
+			}
+		}
+	}
 	public DashboardOnMap getDashboard() {
 		return dashboardOnMap;
 	}

@@ -19,6 +19,7 @@ import net.osmand.plus.R;
 import net.osmand.plus.quickaction.actions.DayNightModeAction;
 import net.osmand.plus.quickaction.actions.FavoriteAction;
 import net.osmand.plus.quickaction.actions.GPXAction;
+import net.osmand.plus.quickaction.actions.HUDAction;
 import net.osmand.plus.quickaction.actions.MapStyleAction;
 import net.osmand.plus.quickaction.actions.MarkerAction;
 import net.osmand.plus.quickaction.actions.NavAddDestinationAction;
@@ -214,6 +215,7 @@ public class QuickActionRegistry {
 		quickActionTypes.add(DayNightModeAction.TYPE);
 		quickActionTypes.add(ShowHideTransportLinesAction.TYPE);
 		quickActionTypes.add(ShowHideMapillaryAction.TYPE);
+		quickActionTypes.add(HUDAction.TYPE);
 		// navigation
 		quickActionTypes.add(NavVoiceAction.TYPE);
 		quickActionTypes.add(NavDirectionsFromAction.TYPE);

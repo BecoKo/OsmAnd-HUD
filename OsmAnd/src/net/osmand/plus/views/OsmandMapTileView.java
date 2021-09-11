@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.PointF;
@@ -575,7 +576,10 @@ public class OsmandMapTileView implements IMapDownloaderCallback {
 				RectF rct = new RectF(x1, y1, x2, y2);
 				canvas.drawBitmap(bufferBitmap, null, rct, paintImg);
 			}
-			canvas.rotate(-rot, currentViewport.getCenterPixelX(), currentViewport.getCenterPixelY());
+			//canvas.rotate(-rot, currentViewport.getCenterPixelX(), currentViewport.getCenterPixelY());
+			if(settings.HEAD_UP_DISPLAY.get()) {
+				canvas.scale(1f, -1f, canvas.getWidth() * 0.5f, canvas.getHeight() * 0.5f);
+			}
 		}
 	}
 
@@ -737,6 +741,9 @@ public class OsmandMapTileView implements IMapDownloaderCallback {
 		synchronized (this) {
 			if (bufferBitmap != null && !bufferBitmap.isRecycled() && mapRenderer == null) {
 				canvas.save();
+				if(settings.HEAD_UP_DISPLAY.get()) {
+					canvas.scale(1f, -1f, canvas.getWidth() * 0.5f, canvas.getHeight() * 0.5f); //HUD
+				}
 				canvas.rotate(tileBox.getRotate(), c.x, c.y);
 				drawBasemap(canvas);
 				canvas.restore();
@@ -751,6 +758,9 @@ public class OsmandMapTileView implements IMapDownloaderCallback {
 			try {
 				OsmandMapLayer layer = layers.get(i);
 				canvas.save();
+				if(settings.HEAD_UP_DISPLAY.get()) {
+					canvas.scale(1f, -1f, canvas.getWidth() *0.5f, canvas.getHeight() *0.5f); //HUD
+				}
 				// rotate if needed
 				if (!layer.drawInScreenPixels()) {
 					canvas.rotate(tileBox.getRotate(), c.x, c.y);
@@ -764,6 +774,10 @@ public class OsmandMapTileView implements IMapDownloaderCallback {
 				// skip it
 			}
 		}
+		canvas.save();
+		if(settings.HEAD_UP_DISPLAY.get()) {
+			canvas.scale(1f, -1f, canvas.getWidth() *0.5f, canvas.getHeight() *0.5f); //HUD}
+		}
 		if (showMapPosition || animatedDraggingThread.isAnimatingZoom()) {
 			drawMapPosition(canvas, c.x, c.y);
 		} else if (multiTouchSupport.isInZoomMode()) {
@@ -771,6 +785,7 @@ public class OsmandMapTileView implements IMapDownloaderCallback {
 		} else if (doubleTapScaleDetector.isInZoomMode()) {
 			drawMapPosition(canvas, doubleTapScaleDetector.getCenterX(), doubleTapScaleDetector.getCenterY());
 		}
+		canvas.restore();
 	}
 
 

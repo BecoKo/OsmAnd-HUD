@@ -4108,5 +4108,14 @@
     <string name="routing_attr_freeride_policy_name">Off-piste</string>
     <string name="routing_attr_freeride_policy_description">\'Freeride\' and \'Off-piste\' are unofficial routes and passages. Typically ungroomed, unmaintained and not checked in the evening. Enter at your own risk.</string>
     <string name="voice_prompts_timetable">Voice prompts times</string>
+	<string name="quick_action_head_up_display_switch_descr">Head-Up Display to mirror screen vertically</string>
+    <string name="head_up_display">Head-Up Display</string>
+    <string name="head_up_display_switch">Head-Up Display On/Off</string>
+    <string name="head_up_display_title">Head-Up Display settings</string>
+    <string name="head_up_display_scale_descr">Because the windshield of your car is curved, the reflected image will be distorted. Here you can adjust the mirrored image aspect ratio.</string>
+    <string name="head_up_display_vetical_scale">HUD vertical scale</string>
+    <string name="head_up_display_action_enable">Enable HUD</string>
+    <string name="head_up_display_action_disable">Disable HUD</string>
+    <string name="head_up_display_switch_title">HUD enable</string>
 
 </resources>

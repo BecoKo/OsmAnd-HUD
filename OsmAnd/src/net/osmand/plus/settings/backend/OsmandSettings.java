@@ -2746,6 +2746,18 @@ public class OsmandSettings {
 		SHOW_STREET_NAME.setModeDefaultValue(ApplicationMode.PEDESTRIAN, false);
 	}
 
+	public final CommonPreference<Boolean> HEAD_UP_DISPLAY =
+			new BooleanPreference(this, "HEAD_UP_DISPLAY", false).makeProfile();
+
+	{
+		HEAD_UP_DISPLAY.setModeDefaultValue(ApplicationMode.DEFAULT, false);
+		HEAD_UP_DISPLAY.setModeDefaultValue(ApplicationMode.CAR, false);
+		HEAD_UP_DISPLAY.setModeDefaultValue(ApplicationMode.BICYCLE, false);
+		HEAD_UP_DISPLAY.setModeDefaultValue(ApplicationMode.PEDESTRIAN, false);
+	}
+	public final CommonPreference<Integer> HEAD_UP_DISPLAY_SCALE =
+			new IntPreference(this, "HEAD_UP_DISPLAY_SCALE", 100).makeProfile().cache();
+
 	public static final int OSMAND_DARK_THEME = 0;
 	public static final int OSMAND_LIGHT_THEME = 1;
 	public static final int SYSTEM_DEFAULT_THEME = 2;
