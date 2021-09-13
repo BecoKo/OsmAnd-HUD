@@ -2261,4 +2261,13 @@
     <string name="osm_live_subscription_desc">Абонаментът позволява почасови, ежедневни, седмични актуализации и неограничено изтегляне за всички карти в световен мащаб.</string>
     <string name="select_wikipedia_article_langs">Изберете езиците на които Уикипедия публикациите ще се появяват на картата. Можете да превключвате между наличните езици докато четете публикацията.</string>
     <string name="extra_maps_menu_group">Допълнителни карти</string>
+    <string name="quick_action_head_up_display_switch_descr">HUD дисплей - обръща екрана вертикално</string>
+    <string name="head_up_display">Head-Up Display</string>
+    <string name="head_up_display_switch">Head-Up Display Вкл./Изкл.</string>
+    <string name="head_up_display_title">Head-Up Display настройки</string>
+    <string name="head_up_display_scale_descr">Понеже предното стъкло на вашата кола е извито, отразената картина ще бъде изкривена. Тук можете да регулирате съотношението на страните на отразеното изображение.</string>
+    <string name="head_up_display_vetical_scale">HUD вертикална скала</string>
+    <string name="head_up_display_action_enable">HUD активиране</string>
+    <string name="head_up_display_action_disable">HUD деактивиране</string>
+    <string name="head_up_display_switch_title">HUD активиране</string>
 </resources>
