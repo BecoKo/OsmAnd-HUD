@@ -39,7 +39,11 @@ All main functionalities work both online and offline (no internet needed).
  * Can display satellite view (from Bing)
  * Can display different overlays like touring/navigation GPX tracks and additional maps with customizable transparency
  * Optionally display place names in English, local, or phonetic spelling
-
+ * Head-Up Display
+ <p>
+ <img src="https://user-images.githubusercontent.com/3833745/133986516-38b54087-2f6d-4e46-a11c-1bf6fa951129.png" alt="Head-Up Display QuickAction" height="240"/>
+ <img src="https://user-images.githubusercontent.com/3833745/133986570-f45c7b50-6e95-4a67-a51d-da6ba3a3a6d3.png" alt="Head-Up Display" height="240"/>
+</p>
 #### Use OpenStreetMap and Wikipedia Data
  * High quality information from the world's best collaborative projects
  * Global maps from OpenStreetMap, available per country or region
